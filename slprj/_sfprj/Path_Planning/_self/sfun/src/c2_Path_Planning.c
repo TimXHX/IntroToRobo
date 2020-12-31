@@ -197,10 +197,10 @@ static void sf_gateway_c2_Path_Planning(SFc2_Path_PlanningInstanceStruct
   c2_b_vc = (real_T *)ssGetInputPortSignal(chartInstance->S, 0);
   _SFD_SYMBOL_SCOPE_PUSH(0U, 0U);
   _sfTime_ = sf_get_time(chartInstance->S);
-  _SFD_CC_CALL(CHART_ENTER_SFUNCTION_TAG, 0U, chartInstance->c2_sfEvent);
+  _SFD_CC_CALL(CHART_ENTER_SFUNCTION_TAG, 1U, chartInstance->c2_sfEvent);
   _SFD_DATA_RANGE_CHECK(*c2_b_vc, 0U);
   chartInstance->c2_sfEvent = CALL_EVENT;
-  _SFD_CC_CALL(CHART_ENTER_DURING_FUNCTION_TAG, 0U, chartInstance->c2_sfEvent);
+  _SFD_CC_CALL(CHART_ENTER_DURING_FUNCTION_TAG, 1U, chartInstance->c2_sfEvent);
   c2_hoistedGlobal = *c2_b_vc;
   c2_b_hoistedGlobal = *c2_b_theta;
   c2_vc = c2_hoistedGlobal;
@@ -232,7 +232,7 @@ static void sf_gateway_c2_Path_Planning(SFc2_Path_PlanningInstanceStruct
   _SFD_SYMBOL_SCOPE_POP();
   *c2_b_vx = c2_vx;
   *c2_b_vy = c2_vy;
-  _SFD_CC_CALL(EXIT_OUT_OF_FUNCTION_TAG, 0U, chartInstance->c2_sfEvent);
+  _SFD_CC_CALL(EXIT_OUT_OF_FUNCTION_TAG, 1U, chartInstance->c2_sfEvent);
   _SFD_SYMBOL_SCOPE_POP();
   _SFD_CHECK_FOR_STATE_INCONSISTENCY(_Path_PlanningMachineNumber_,
     chartInstance->chartNumber, chartInstance->instanceNumber);
