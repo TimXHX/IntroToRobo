@@ -22,7 +22,7 @@ hold on;
 %画出障碍点
 FillPlot(obstacle,'k');
 
-path=AStar(obstacle,map)%A*算法
+path=AStar(obstacle,map);%A*算法
 
 %画出路径
 %
@@ -30,3 +30,4 @@ if length(path)>=1
     plot(path(:,1),path(:,2),'-c','LineWidth',5);hold on;
 end
 %}
+accuratepath = interplotation(path);
