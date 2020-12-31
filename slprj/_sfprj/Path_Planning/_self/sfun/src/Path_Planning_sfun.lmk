@@ -7,6 +7,7 @@ LIBFLAGS =
 
 OBJECTS = \
 	"Path_Planning_sfun.obj"\
+	"c1_Path_Planning.obj"\
 	"c2_Path_Planning.obj"\
 	"Path_Planning_sfun_registry.obj"\
 	"lccstub.obj"\
@@ -30,6 +31,8 @@ Path_Planning_sfun.mexw64 : $(MAKEFILE) $(OBJECTS)
 	$(LD) $(LDFLAGS) -o Path_Planning_sfun.mexw64 @Path_Planning_sfun.lmko
 Path_Planning_sfun.obj :	"Path_Planning_sfun.c"
 	$(CC) $(CFLAGS) $(INCLUDE_PATH) "Path_Planning_sfun.c"
+c1_Path_Planning.obj :	"c1_Path_Planning.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "c1_Path_Planning.c"
 c2_Path_Planning.obj :	"c2_Path_Planning.c"
 	$(CC) $(CFLAGS) $(INCLUDE_PATH) "c2_Path_Planning.c"
 Path_Planning_sfun_registry.obj :	"Path_Planning_sfun_registry.c"
