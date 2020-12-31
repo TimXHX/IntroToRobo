@@ -42,7 +42,7 @@
 
 
 function accuratepath = interplotation(path)
-%交换顺序为从起点到终点并进行插值
+%对path进行插值，并交换顺序为从起点到终点
 
 %交换顺序为起点到终点
 sizeofpath=size(path);
@@ -53,7 +53,7 @@ for i=n:-1:1
 end
 
 %插值
-insertnum=13; %在相邻两个栅格中心间插入insertnum个点,表征插值精度
+accu=1; %在相邻两个栅格中心间插入accu个点（插值精度）
 accuratepath=[]; %插值后的路径
 iaccu=1; %表示accuratepath当前行号
 
@@ -61,16 +61,16 @@ for i=1:n-1;
     
     if pathfromstartpoint(i,1)==pathfromstartpoint(i+1,1) %竖着走
    
-         for j=1:insertnum+2
-             accuratepath=[accuratepath;pathfromstartpoint(i,1),interp1([1,insertnum+2],[pathfromstartpoint(i,2),pathfromstartpoint(i+1,2)],j,'linear')];
+         for j=1:accu+2
+             accuratepath=[accuratepath;path(i,1),interp1([1,accu+2],[pathfromstartpoint(i,2),pathfromstartpoint(i+1,2)],j,'linear')];
              iaccu=iaccu+1;
          end
           
         
     else %横着走
         
-        for j=1:insertnum+2
-             accuratepath=[accuratepath;interp1([1,insertnum+2],[pathfromstartpoint(i,1),pathfromstartpoint(i+1,1)],j,'linear'),pathfromstartpoint(i,2)];
+        for j=1:accu+2
+             accuratepath=[accuratepath;interp1([1,accu+2],[pathfromstartpoint(i,1),pathfromstartpoint(i+1,1)],j,'linear');path(i,2)];
              iaccu=iaccu+1;
          end
     end

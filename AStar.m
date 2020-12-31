@@ -55,7 +55,7 @@ while ~findFlag
     [isopenFlag,Id]=isopen(map.goal,open);
     if isopenFlag
         disp('Find Goal!!');
-        close = [open(Id,:);close]
+        close = [open(Id,:);close];
         findFlag=true;
         break;
     end
