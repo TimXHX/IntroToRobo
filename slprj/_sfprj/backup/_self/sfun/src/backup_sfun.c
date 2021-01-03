@@ -1,9 +1,8 @@
 /* Include files */
 
-#include "Path_Planning_sfun.h"
-#include "Path_Planning_sfun_debug_macros.h"
-#include "c1_Path_Planning.h"
-#include "c2_Path_Planning.h"
+#include "backup_sfun.h"
+#include "backup_sfun_debug_macros.h"
+#include "c2_backup.h"
 
 /* Type Definitions */
 
@@ -12,38 +11,33 @@
 /* Variable Declarations */
 
 /* Variable Definitions */
-uint32_T _Path_PlanningMachineNumber_;
+uint32_T _backupMachineNumber_;
 
 /* Function Declarations */
 
 /* Function Definitions */
-void Path_Planning_initializer(void)
+void backup_initializer(void)
 {
 }
 
-void Path_Planning_terminator(void)
+void backup_terminator(void)
 {
 }
 
 /* SFunction Glue Code */
-unsigned int sf_Path_Planning_method_dispatcher(SimStruct *simstructPtr,
-  unsigned int chartFileNumber, const char* specsCksum, int_T method, void *data)
+unsigned int sf_backup_method_dispatcher(SimStruct *simstructPtr, unsigned int
+  chartFileNumber, const char* specsCksum, int_T method, void *data)
 {
-  if (chartFileNumber==1) {
-    c1_Path_Planning_method_dispatcher(simstructPtr, method, data);
-    return 1;
-  }
-
   if (chartFileNumber==2) {
-    c2_Path_Planning_method_dispatcher(simstructPtr, method, data);
+    c2_backup_method_dispatcher(simstructPtr, method, data);
     return 1;
   }
 
   return 0;
 }
 
-unsigned int sf_Path_Planning_process_check_sum_call( int nlhs, mxArray * plhs[],
-  int nrhs, const mxArray * prhs[] )
+unsigned int sf_backup_process_check_sum_call( int nlhs, mxArray * plhs[], int
+  nrhs, const mxArray * prhs[] )
 {
 
 #ifdef MATLAB_MEX_FILE
@@ -62,35 +56,28 @@ unsigned int sf_Path_Planning_process_check_sum_call( int nlhs, mxArray * plhs[]
     mxGetString(prhs[1], commandName,sizeof(commandName)/sizeof(char));
     commandName[(sizeof(commandName)/sizeof(char)-1)] = '\0';
     if (!strcmp(commandName,"machine")) {
-      ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(3748384042U);
-      ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(4121119004U);
-      ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(4229655120U);
-      ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(980906356U);
+      ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(2562861428U);
+      ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(2482767992U);
+      ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(1867468776U);
+      ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(3435657815U);
     } else if (!strcmp(commandName,"exportedFcn")) {
       ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(0U);
       ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(0U);
       ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(0U);
       ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(0U);
     } else if (!strcmp(commandName,"makefile")) {
-      ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(2287025347U);
-      ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(2213824637U);
-      ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(3447881020U);
-      ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(4283747939U);
+      ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(1474325200U);
+      ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(3283752861U);
+      ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(1436610943U);
+      ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(2610991550U);
     } else if (nrhs==3 && !strcmp(commandName,"chart")) {
       unsigned int chartFileNumber;
       chartFileNumber = (unsigned int)mxGetScalar(prhs[2]);
       switch (chartFileNumber) {
-       case 1:
-        {
-          extern void sf_c1_Path_Planning_get_check_sum(mxArray *plhs[]);
-          sf_c1_Path_Planning_get_check_sum(plhs);
-          break;
-        }
-
        case 2:
         {
-          extern void sf_c2_Path_Planning_get_check_sum(mxArray *plhs[]);
-          sf_c2_Path_Planning_get_check_sum(plhs);
+          extern void sf_c2_backup_get_check_sum(mxArray *plhs[]);
+          sf_c2_backup_get_check_sum(plhs);
           break;
         }
 
@@ -109,10 +96,10 @@ unsigned int sf_Path_Planning_process_check_sum_call( int nlhs, mxArray * plhs[]
       return 0;
     }
   } else {
-    ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(3114525317U);
-    ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(1306446935U);
-    ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(413948881U);
-    ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(627578127U);
+    ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(2069637407U);
+    ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(1441253062U);
+    ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(2952548558U);
+    ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(1251892033U);
   }
 
   return 1;
@@ -125,8 +112,8 @@ unsigned int sf_Path_Planning_process_check_sum_call( int nlhs, mxArray * plhs[]
 
 }
 
-unsigned int sf_Path_Planning_autoinheritance_info( int nlhs, mxArray * plhs[],
-  int nrhs, const mxArray * prhs[] )
+unsigned int sf_backup_autoinheritance_info( int nlhs, mxArray * plhs[], int
+  nrhs, const mxArray * prhs[] )
 {
 
 #ifdef MATLAB_MEX_FILE
@@ -148,23 +135,11 @@ unsigned int sf_Path_Planning_autoinheritance_info( int nlhs, mxArray * plhs[],
     unsigned int chartFileNumber;
     chartFileNumber = (unsigned int)mxGetScalar(prhs[1]);
     switch (chartFileNumber) {
-     case 1:
-      {
-        if (strcmp(aiChksum, "ymF3LkIzaAfadX8dF7uONC") == 0) {
-          extern mxArray *sf_c1_Path_Planning_get_autoinheritance_info(void);
-          plhs[0] = sf_c1_Path_Planning_get_autoinheritance_info();
-          break;
-        }
-
-        plhs[0] = mxCreateDoubleMatrix(0,0,mxREAL);
-        break;
-      }
-
      case 2:
       {
         if (strcmp(aiChksum, "NnCpM5dk0VmtvxpSbXpsoD") == 0) {
-          extern mxArray *sf_c2_Path_Planning_get_autoinheritance_info(void);
-          plhs[0] = sf_c2_Path_Planning_get_autoinheritance_info();
+          extern mxArray *sf_c2_backup_get_autoinheritance_info(void);
+          plhs[0] = sf_c2_backup_get_autoinheritance_info();
           break;
         }
 
@@ -187,8 +162,8 @@ unsigned int sf_Path_Planning_autoinheritance_info( int nlhs, mxArray * plhs[],
 
 }
 
-unsigned int sf_Path_Planning_get_eml_resolved_functions_info( int nlhs, mxArray
-  * plhs[], int nrhs, const mxArray * prhs[] )
+unsigned int sf_backup_get_eml_resolved_functions_info( int nlhs, mxArray *
+  plhs[], int nrhs, const mxArray * prhs[] )
 {
 
 #ifdef MATLAB_MEX_FILE
@@ -207,23 +182,11 @@ unsigned int sf_Path_Planning_get_eml_resolved_functions_info( int nlhs, mxArray
     unsigned int chartFileNumber;
     chartFileNumber = (unsigned int)mxGetScalar(prhs[1]);
     switch (chartFileNumber) {
-     case 1:
-      {
-        extern const mxArray
-          *sf_c1_Path_Planning_get_eml_resolved_functions_info(void);
-        mxArray *persistentMxArray = (mxArray *)
-          sf_c1_Path_Planning_get_eml_resolved_functions_info();
-        plhs[0] = mxDuplicateArray(persistentMxArray);
-        mxDestroyArray(persistentMxArray);
-        break;
-      }
-
      case 2:
       {
-        extern const mxArray
-          *sf_c2_Path_Planning_get_eml_resolved_functions_info(void);
+        extern const mxArray *sf_c2_backup_get_eml_resolved_functions_info(void);
         mxArray *persistentMxArray = (mxArray *)
-          sf_c2_Path_Planning_get_eml_resolved_functions_info();
+          sf_c2_backup_get_eml_resolved_functions_info();
         plhs[0] = mxDuplicateArray(persistentMxArray);
         mxDestroyArray(persistentMxArray);
         break;
@@ -244,8 +207,8 @@ unsigned int sf_Path_Planning_get_eml_resolved_functions_info( int nlhs, mxArray
 
 }
 
-unsigned int sf_Path_Planning_third_party_uses_info( int nlhs, mxArray * plhs[],
-  int nrhs, const mxArray * prhs[] )
+unsigned int sf_backup_third_party_uses_info( int nlhs, mxArray * plhs[], int
+  nrhs, const mxArray * prhs[] )
 {
   char commandName[64];
   char tpChksum[64];
@@ -264,20 +227,11 @@ unsigned int sf_Path_Planning_third_party_uses_info( int nlhs, mxArray * plhs[],
     unsigned int chartFileNumber;
     chartFileNumber = (unsigned int)mxGetScalar(prhs[1]);
     switch (chartFileNumber) {
-     case 1:
-      {
-        if (strcmp(tpChksum, "JnTIWbgug9rrP3OzyG58AE") == 0) {
-          extern mxArray *sf_c1_Path_Planning_third_party_uses_info(void);
-          plhs[0] = sf_c1_Path_Planning_third_party_uses_info();
-          break;
-        }
-      }
-
      case 2:
       {
         if (strcmp(tpChksum, "uGAIqgxyprKen7W0eyKSrE") == 0) {
-          extern mxArray *sf_c2_Path_Planning_third_party_uses_info(void);
-          plhs[0] = sf_c2_Path_Planning_third_party_uses_info();
+          extern mxArray *sf_c2_backup_third_party_uses_info(void);
+          plhs[0] = sf_c2_backup_third_party_uses_info();
           break;
         }
       }
@@ -290,8 +244,8 @@ unsigned int sf_Path_Planning_third_party_uses_info( int nlhs, mxArray * plhs[],
   return 1;
 }
 
-unsigned int sf_Path_Planning_updateBuildInfo_args_info( int nlhs, mxArray *
-  plhs[], int nrhs, const mxArray * prhs[] )
+unsigned int sf_backup_updateBuildInfo_args_info( int nlhs, mxArray * plhs[],
+  int nrhs, const mxArray * prhs[] )
 {
   char commandName[64];
   char tpChksum[64];
@@ -310,20 +264,11 @@ unsigned int sf_Path_Planning_updateBuildInfo_args_info( int nlhs, mxArray *
     unsigned int chartFileNumber;
     chartFileNumber = (unsigned int)mxGetScalar(prhs[1]);
     switch (chartFileNumber) {
-     case 1:
-      {
-        if (strcmp(tpChksum, "JnTIWbgug9rrP3OzyG58AE") == 0) {
-          extern mxArray *sf_c1_Path_Planning_updateBuildInfo_args_info(void);
-          plhs[0] = sf_c1_Path_Planning_updateBuildInfo_args_info();
-          break;
-        }
-      }
-
      case 2:
       {
         if (strcmp(tpChksum, "uGAIqgxyprKen7W0eyKSrE") == 0) {
-          extern mxArray *sf_c2_Path_Planning_updateBuildInfo_args_info(void);
-          plhs[0] = sf_c2_Path_Planning_updateBuildInfo_args_info();
+          extern mxArray *sf_c2_backup_updateBuildInfo_args_info(void);
+          plhs[0] = sf_c2_backup_updateBuildInfo_args_info();
           break;
         }
       }
@@ -336,33 +281,31 @@ unsigned int sf_Path_Planning_updateBuildInfo_args_info( int nlhs, mxArray *
   return 1;
 }
 
-void Path_Planning_debug_initialize(struct SfDebugInstanceStruct* debugInstance)
+void backup_debug_initialize(struct SfDebugInstanceStruct* debugInstance)
 {
-  _Path_PlanningMachineNumber_ = sf_debug_initialize_machine(debugInstance,
-    "Path_Planning","sfun",0,2,0,0,0);
-  sf_debug_set_machine_event_thresholds(debugInstance,
-    _Path_PlanningMachineNumber_,0,0);
-  sf_debug_set_machine_data_thresholds(debugInstance,
-    _Path_PlanningMachineNumber_,0);
+  _backupMachineNumber_ = sf_debug_initialize_machine(debugInstance,"backup",
+    "sfun",0,1,0,0,0);
+  sf_debug_set_machine_event_thresholds(debugInstance,_backupMachineNumber_,0,0);
+  sf_debug_set_machine_data_thresholds(debugInstance,_backupMachineNumber_,0);
 }
 
-void Path_Planning_register_exported_symbols(SimStruct* S)
+void backup_register_exported_symbols(SimStruct* S)
 {
 }
 
 static mxArray* sRtwOptimizationInfoStruct= NULL;
-mxArray* load_Path_Planning_optimization_info(void)
+mxArray* load_backup_optimization_info(void)
 {
   if (sRtwOptimizationInfoStruct==NULL) {
-    sRtwOptimizationInfoStruct = sf_load_rtw_optimization_info("Path_Planning",
-      "Path_Planning");
+    sRtwOptimizationInfoStruct = sf_load_rtw_optimization_info("backup",
+      "backup");
     mexMakeArrayPersistent(sRtwOptimizationInfoStruct);
   }
 
   return(sRtwOptimizationInfoStruct);
 }
 
-void unload_Path_Planning_optimization_info(void)
+void unload_backup_optimization_info(void)
 {
   if (sRtwOptimizationInfoStruct!=NULL) {
     mxDestroyArray(sRtwOptimizationInfoStruct);

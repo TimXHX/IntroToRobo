@@ -1,9 +1,10 @@
 
 result=real_trajory.signals.values;
+result_time=real_trajory.time;
 size_result=size(result);
 
  figure(1);
-for i = 1:size_result(1)
+for i = 1:fix(size_result(1)/50):size_result(1)
    
     clf;
     
@@ -17,7 +18,9 @@ for i = 1:size_result(1)
     end
     
     plot(plot_x,plot_y);
+    title( [ num2str(result_time(i)),'s'] );
+    grid on;
     axis([-10,10,-10,10]);
-    pause(0.5);
+    pause(0.2);
     
 end
