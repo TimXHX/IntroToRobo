@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.56"
+    ComputedModelVersion    "1.57"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -65,9 +65,9 @@ Model {
 	IsActive		[1]
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
-	Extents			[1886.0, 843.0]
+	Extents			[1886.0, 848.0]
 	ZoomFactor		[1.25]
-	Offset			[-132.73421686209412, 63.957170911999022]
+	Offset			[-132.73421686209417, 63.957170911999015]
       }
     }
   }
@@ -77,9 +77,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "WXY"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Jan 04 15:32:00 2021"
-  RTWModifiedTimeStamp	  531672426
-  ModelVersionFormat	  "1.%<AutoIncrement:56>"
+  LastModifiedDate	  "Mon Jan 04 15:43:43 2021"
+  RTWModifiedTimeStamp	  531675787
+  ModelVersionFormat	  "1.%<AutoIncrement:57>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -122,7 +122,7 @@ Model {
     $ObjectID		    7
     $ClassName		    "Simulink.SimulationData.ModelLoggingInfo"
     model_		    "Path_Planning"
-    overrideMode_	    [0U]
+    overrideMode_	    [0.0]
     Array {
       Type		      "Cell"
       Dimension		      1
@@ -992,7 +992,7 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "125"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "103"
+    SIDHighWatermark	    "104"
     Block {
       BlockType		      Constant
       Name		      "Constant"
@@ -2177,7 +2177,6 @@ Model {
       ZOrder		      89
       SrcBlock		      "MATLAB Function"
       SrcPort		      3
-      Points		      [35, 0]
       DstBlock		      "Terminator1"
       DstPort		      1
     }
@@ -2283,8 +2282,6 @@ Stateflow {
     created		    "31-Dec-2020 10:33:08"
     isLibrary		    0
     firstTarget		    28
-    debug {
-    }
     sfVersion		    76014001.002
   }
   chart {
@@ -2297,10 +2294,7 @@ Stateflow {
     firstTransition	    17
     firstJunction	    16
     viewObj		    2
-    visible		    1
     machine		    1
-    subviewS {
-    }
     ssIdHighWaterMark	    15
     decomposition	    CLUSTER_CHART
     type		    EML_CHART
