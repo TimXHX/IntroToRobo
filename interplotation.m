@@ -53,7 +53,7 @@ for i=n:-1:1
 end
 
 %插值
-insertnum=13; %在相邻两个栅格中心间插入insertnum个点,表征插值精度
+insertnum=30; %在相邻两个栅格中心间插入insertnum个点,表征插值精度
 accuratepath=[]; %插值后的路径
 iaccu=1; %表示accuratepath当前行号
 

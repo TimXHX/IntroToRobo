@@ -2,6 +2,7 @@
 clc;
 close all;
 disp('A Star Path Planing start!!')
+d=0.235; %两轮间距
 map.XYMAX=10; %%代表我们要画一个地图的长和宽
 map.start=[1,1];  %起始点 注意必须在地图范围内
 map.goal=[7,8];  %目标点 注意必须在地图范围内
