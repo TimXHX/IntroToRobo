@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.57"
+    ComputedModelVersion    "1.59"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -67,7 +67,7 @@ Model {
 	LoadSaveID		"0"
 	Extents			[1886.0, 848.0]
 	ZoomFactor		[1.25]
-	Offset			[-132.73421686209417, 63.957170911999015]
+	Offset			[-0.2759372152931987, 60.757170911999104]
       }
     }
   }
@@ -77,9 +77,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "WXY"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Jan 04 15:43:43 2021"
-  RTWModifiedTimeStamp	  531675787
-  ModelVersionFormat	  "1.%<AutoIncrement:57>"
+  LastModifiedDate	  "Wed Jan 06 16:33:48 2021"
+  RTWModifiedTimeStamp	  531851596
+  ModelVersionFormat	  "1.%<AutoIncrement:59>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -1563,6 +1563,7 @@ Model {
 	  Ports			  [1, 1]
 	  Position		  [605, 25, 635, 55]
 	  ZOrder		  36
+	  InitialCondition	  "0.28"
 	}
 	Block {
 	  BlockType		  Integrator
@@ -1571,6 +1572,7 @@ Model {
 	  Ports			  [1, 1]
 	  Position		  [605, 80, 635, 110]
 	  ZOrder		  37
+	  InitialCondition	  "0.28"
 	}
 	Block {
 	  BlockType		  SubSystem
@@ -1977,10 +1979,10 @@ Model {
 	      SourceBlock	      "simulink/Sinks/XY Graph"
 	      SourceType	      "XY scope."
 	      ContentPreviewEnabled   off
-	      xmin		      "-1"
-	      xmax		      "10"
-	      ymin		      "-1"
-	      ymax		      "10"
+	      xmin		      "-0.3"
+	      xmax		      "3"
+	      ymin		      "-0.3"
+	      ymax		      "3"
 	      st		      "-1"
 	    }
 	    Line {
@@ -2294,7 +2296,10 @@ Stateflow {
     firstTransition	    17
     firstJunction	    16
     viewObj		    2
+    visible		    1
     machine		    1
+    subviewS {
+    }
     ssIdHighWaterMark	    15
     decomposition	    CLUSTER_CHART
     type		    EML_CHART
@@ -2319,46 +2324,46 @@ Stateflow {
     decomposition	    CLUSTER_STATE
     eml {
       isEML		      1
-      script		      "function [Vf, W, target_distance, ang_to_tar, tx, ty, states] = ...\n    WaypointControl(target_l"
-      "ist, robot_x,robot_y,robot_theta, pre_states)\nvlimit = 0.5; %最大限速\ndist_thr = 0.1;\nang_thr = 10*pi/180;\nm"
-      "ethod = 1;\nstep=1;\n%step = 3; % 预估目标点的间隔\nstop = 10;\n\n%%%只需要改Kv_1 Kw_1就好\nKv_1 = 2; % 左轮速度"
+      script		      "function [Vf, W, target_distance, ang_to_tar, tx, ty, states ] = ...\n    WaypointControl(target_"
+      "list, robot_x,robot_y,robot_theta, pre_states)\nvlimit = 0.5; %最大限速\ndist_thr = 0.1;\nang_thr = 10*pi/180;\n"
+      "method = 2;\nstep=1;\n%step = 3; % 预估目标点的间隔\nstop = 10;\n\n%%%只需要改Kv_1 Kw_1就好\nKv_1 = 2; % 左轮速度"
       "常数   目标v=kv*x\nKw_1 = 1; % 左轮转角速度常数  目标w=kw*x\n\nKv_2 = 0.2;\nKw_2 = 0.9;\nPsi_d = pi; % 机器人最终"
       "停止时角度（朝向）\n\n% 初始化输出参数\n Vf=0;\n W=0;\n target_distance=0;\n ang_to_tar=0;\n finished_path_flag="
-      "0; \n \n persistent Vf_1 end_flag;\n \n if isempty(Vf_1)\n     Vf_1=0;\n end\n if isempty(end_flag)\n    end_fla"
-      "g = 0;\n end\n \n %储存上一次的状态信息\nstates = pre_states;\n\nrx =robot_x;\nry = robot_y;\nrtheta = check_ang"
-      "le(robot_theta); %限定转角在 [-pi ,pi]之间\n\n\ntarget_xy = [rx ry];  %当前坐标x y\n[n xy] = size(target_list); "
-      " % n代表有n个点; xy=2\nif n==2 && xy==1\n    target_xy = [target_list(1,1) target_list(2,1)];\n    n = 1;\nelse\n"
-      "    for i=1:n  %遍历所有规划的点\n        if states(1) == i  %找到前面的规划点\n            for j=1:xy\n        "
-      "        if i < n-stop  %预瞄\n                    target_xy(j) = target_list(i+stop, j);\n                else\n"
-      "                    target_xy(j) = target_list(i, j);\n                end\n            end\n        end\n    en"
-      "d\nend\n\ntx = target_xy(1);\nty = target_xy(2);\ntarget_distance = find_dist(rx, ry, tx, ty);\nang_to_tar= find"
-      "_theta(rx, ry, rtheta, tx, ty);\n\nif ((states(1) == n) && (target_distance <= dist_thr))  %到达终点或离终点\n\n"
-      "        Vf=0;\n        W=0;\n        \n       if (end_flag == 1) && (target_distance <= dist_thr) % 最终到达目的"
-      "地时朝向转到要求位置\n            [Vf, W] = ClosedLoop_Sequential(0, check_angle(check_angle(Psi_d)-check_angle("
-      "rtheta)), vlimit, ang_thr, dist_thr, Kv_1, Kw_1, Vf_1); \n             Vf_1=Vf;\n       end\n   \nelse\n    % 已"
-      "经到达了目标点附近\n    if (target_distance <= dist_thr) && (end_flag==0)\n            states(1) = pre_states(1)"
-      " + step;%1;\n          if( pre_states(1) > 0 )      \n             while (abs((target_list(states(1),1))-(target"
-      "_list(pre_states(1),1)))<2*dist_thr) && (abs((target_list(states(1),2))-(target_list(pre_states(1),2)))<2*dist_t"
-      "hr)\n                 if (states(1)<=(n-step))\n                     states(1) = states(1) + step;%1;\n         "
-      "        else\n                     states(1)=n;\n                 end\n             end\n          else\n       "
-      "       states(1)=states(1)+step;\n          end\n     \n          %防止数组越界\n         if states(1) >= n \n  "
-      "          states(1) = n;\n            end_flag=1;  %停车\n         end\n\n    else\n        if method == 2\n    "
-      "        [Vf, W] = ClosedLoop_Both(target_distance,  ang_to_tar, vlimit, Kv_2, Kw_2);    \n        else\n        "
-      "    [Vf, W] = ClosedLoop_Sequential(target_distance,  ang_to_tar, vlimit, ang_thr, dist_thr, Kv_1, Kw_1, Vf_1); "
-      "\n            Vf_1=Vf;\n        end       \n    end\n    \nend\n\nreturn;\n\n% 认为机器人转角应在-180到180度之间"
-      "\nfunction [y] = check_angle(x)\ny = x;\nwhile ( x > pi || x < -pi)\n    if x > pi\n        y = x - 2*pi;\n    e"
-      "lse\n        y = x + 2*pi;\n    end\nend\nreturn;\n\n% 目标点与当前点距离\nfunction dist = find_dist(rx, ry, tx,"
-      " ty)\ndist = sqrt((rx-tx)^2 + (ry-ty)^2);\nreturn;\n\n% 机器人当前需要转过的角度\nfunction [theta]= find_theta(r"
-      "x, ry, rtheta, tx, ty)\n\nX = tx - rx;\nY = ty - ry;\ntheta = atan2(Y, X);\ntheta = check_angle(check_angle(thet"
-      "a)-check_angle(rtheta));\n\nreturn;\n\n% 根据目标距离和转角算出机器人的前进速度和转角速度\nfunction [Vf, W] = Cl"
-      "osedLoop_Both(dist, theta, vlimit, Kv,Kw)\n\nd = 0.23;\nvmax = vlimit;\nwmax = (2*vmax);\nW = Kw*theta;\n\nVf = "
-      "Kv * dist;\n\nw_sign = sign(W); % 保留转角符号\nif abs(W) > wmax\n    W = w_sign*wmax;\nend\nif abs(Vf)> vlimit\n"
-      "    Vf = sign(Vf)*vlimit;%%%%% Vf = abs(Vf)*vlimit;\nend\n\nreturn;\n\n% 仅前进或仅转弯\nfunction [Vf, W] = Clos"
-      "edLoop_Sequential(dist, theta, vlimit, ang_thr, dist_thr, Kv, Kw, Vf_1)\n\nd = 0.23;\nvmax = vlimit;\nwmax = (2*"
-      "vmax);\n\nif (((abs(theta) > ang_thr))  && (Vf_1<0.01)) || (abs(theta) > 5*ang_thr) \n        W=Kw*theta;\n     "
-      "   Vf=0;\n        if abs(W)> wmax\n            W=sign(W)*wmax;\n        end\nelse\n        Vf=Kv*dist;\n       \n"
-      "        if abs(Vf)>vlimit\n            Vf=sign(Vf)*vlimit;\n        end\n        \n        W=0;\n        \nend\n"
-      "return;"
+      "0; \n \n \n persistent Vf_1 end_flag;\n \n if isempty(Vf_1)\n     Vf_1=0;\n end\n if isempty(end_flag)\n    end_"
+      "flag = 0;\n end\n\n \n %储存上一次的状态信息\nstates = pre_states;\n\nrx =robot_x;\nry = robot_y;\nrtheta = chec"
+      "k_angle(robot_theta); %限定转角在 [-pi ,pi]之间\n\n\ntarget_xy = [rx ry];  %当前坐标x y\n[n xy] = size(target_li"
+      "st);  % n代表有n个点; xy=2\nif n==2 && xy==1\n    target_xy = [target_list(1,1) target_list(2,1)];\n    n = 1;\n"
+      "else\n    for i=1:n  %遍历所有规划的点\n        if states(1) == i  %找到前面的规划点\n            for j=1:xy\n  "
+      "              if i < n-stop  %预瞄\n                    target_xy(j) = target_list(i+stop, j);\n                "
+      "else\n                    target_xy(j) = target_list(i, j);\n                end\n            end\n        end\n"
+      "    end\nend\n\ntx = target_xy(1);\nty = target_xy(2);\ntarget_distance = find_dist(rx, ry, tx, ty);\nang_to_tar"
+      "= find_theta(rx, ry, rtheta, tx, ty);\n\nif ((states(1) >= n-2) && (target_distance <= dist_thr))\n%if ((states("
+      "1) == n) && (target_distance <= dist_thr))  %到达终点或离终点\n\n        Vf=0;\n        W=0;\n        \n       i"
+      "f (end_flag == 1) && (target_distance <= dist_thr) % 最终到达目的地时朝向转到要求位置\n            % [Vf, W] = C"
+      "losedLoop_Sequential(0, check_angle(check_angle(Psi_d)-check_angle(rtheta)), vlimit, ang_thr, dist_thr, Kv_1, Kw"
+      "_1, Vf_1); \n             Vf_1=Vf;\n       end\n   \nelse\n    % 已经到达了目标点附近\n    if (target_distance <"
+      "= dist_thr) && (end_flag==0)\n            states(1) = pre_states(1) + step;%1;\n          if( pre_states(1) > 0 "
+      ")      \n             while (abs((target_list(states(1),1))-(target_list(pre_states(1),1)))<2*dist_thr) && (abs("
+      "(target_list(states(1),2))-(target_list(pre_states(1),2)))<2*dist_thr)\n                 if (states(1)<=(n-step)"
+      ")\n                     states(1) = states(1) + step;%1;\n                 else\n                     states(1)="
+      "n;\n                 end\n             end\n          else\n              states(1)=states(1)+step;\n          e"
+      "nd\n     \n          %防止数组越界\n         if states(1) >= n \n            states(1) = n;\n            end_fla"
+      "g=1;  %停车\n         end\n\n    else\n        if method == 2\n            [Vf, W] = ClosedLoop_Both(target_dist"
+      "ance,  ang_to_tar, vlimit, Kv_2, Kw_2);    \n        else\n            [Vf, W] = ClosedLoop_Sequential(target_di"
+      "stance,  ang_to_tar, vlimit, ang_thr, dist_thr, Kv_1, Kw_1, Vf_1); \n            Vf_1=Vf;\n        end       \n "
+      "   end\n    \nend\n\nreturn;\n\n% 认为机器人转角应在-180到180度之间\nfunction [y] = check_angle(x)\ny = x;\nwhil"
+      "e ( x > pi || x < -pi)\n    if x > pi\n        y = x - 2*pi;\n    else\n        y = x + 2*pi;\n    end\nend\nret"
+      "urn;\n\n% 目标点与当前点距离\nfunction dist = find_dist(rx, ry, tx, ty)\ndist = sqrt((rx-tx)^2 + (ry-ty)^2);\nre"
+      "turn;\n\n% 机器人当前需要转过的角度\nfunction [theta]= find_theta(rx, ry, rtheta, tx, ty)\n\nX = tx - rx;\nY = t"
+      "y - ry;\ntheta = atan2(Y, X);\ntheta = check_angle(check_angle(theta)-check_angle(rtheta));\n\nreturn;\n\n% 根据"
+      "目标距离和转角算出机器人的前进速度和转角速度\nfunction [Vf, W] = ClosedLoop_Both(dist, theta, vlimit, Kv,Kw)\n\n"
+      "d = 0.23;\nvmax = vlimit;\nwmax = (2*vmax);\nW = Kw*theta;\n\nVf = Kv * dist;\n\nw_sign = sign(W); % 保留转角符号"
+      "\nif abs(W) > wmax\n    W = w_sign*wmax;\nend\nif abs(Vf)> vlimit\n    Vf = sign(Vf)*vlimit;%%%%% Vf = abs(Vf)*v"
+      "limit;\nend\n\nreturn;\n\n% 仅前进或仅转弯\nfunction [Vf, W] = ClosedLoop_Sequential(dist, theta, vlimit, ang_th"
+      "r, dist_thr, Kv, Kw, Vf_1)\n\nd = 0.23;\nvmax = vlimit;\nwmax = (2*vmax);\n\nif (((abs(theta) > ang_thr))  && (V"
+      "f_1<0.01)) || (abs(theta) > 5*ang_thr) \n        W=Kw*theta;\n        Vf=0;\n        if abs(W)> wmax\n          "
+      "  W=sign(W)*wmax;\n        end\nelse\n        Vf=Kv*dist;\n       \n        if abs(Vf)>vlimit\n            Vf=si"
+      "gn(Vf)*vlimit;\n        end\n        \n        W=0;\n        \nend\nreturn;"
       editorLayout	      "100 M4x1[10 5 700 500]"
     }
   }
